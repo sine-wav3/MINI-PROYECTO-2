@@ -47,7 +47,7 @@ public class Juego {
                 int diff = atk.getAtk() - def.getDef();
                 defensor.getCampo().remove(d);
                 defensor.recibirDano(diff);
-                System.out.println("Monstrio eliminado");
+                System.out.println("Monstruo eliminado");
             }else {
                 System.out.println("fallaste :(");
             }
@@ -70,8 +70,12 @@ public class Juego {
 
         }
 
-        for (int i = 0; i < 5; i++) pool.add(new PotOfGreed());
-        for (int i = 0; i < 5; i++) pool.add(new BoostAtk());
+        for (int i = 0; i < 3; i++) pool.add(new PotOfGreed());
+        for (int i = 0; i < 3; i++) pool.add(new BoostAtk());
+        for (int i = 0; i < 3; i++) pool.add(new AcesCoup());
+        for (int i = 0; i < 3; i++) pool.add(new StandarOfCourage());
+        for (int i = 0; i < 3; i++) pool.add(new DarkHole());
+        for (int i = 0; i < 3; i++) pool.add(new Hinotama());
 
         Collections.shuffle(pool);
 
@@ -104,7 +108,7 @@ public class Juego {
 
             System.out.println("1. Jugar carta");
             System.out.println("2. Atacar");
-            System.out.println("3. psara");
+            System.out.println("3. pasara");
 
             int op = sc.nextInt();
 
