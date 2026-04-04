@@ -1,0 +1,12 @@
+public class Raigeki extends Magica{
+    public Raigeki(){
+        super("Raigeki");
+    }
+
+    @Override
+    public void activar(Jugador jugador, Jugador oponente){
+        oponente.getCampo().clear();
+    }
+    
+}
+
