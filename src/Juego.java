@@ -66,16 +66,20 @@ public class Juego {
         List<Carta> pool = new ArrayList<>();
 
         for (int i = 0; i < 30; i++){
-            pool.add(new Monstruo("Monstruo " + i, 1000 + i * 10, 1000, 4));
+            pool.add(new Monstruo("Monstruo " + i, 1000 + i * 10, 1000 + i, 4));
 
         }
 
-        for (int i = 0; i < 3; i++) pool.add(new PotOfGreed());
-        for (int i = 0; i < 3; i++) pool.add(new BoostAtk());
-        for (int i = 0; i < 3; i++) pool.add(new AcesCoup());
-        for (int i = 0; i < 3; i++) pool.add(new StandarOfCourage());
-        for (int i = 0; i < 3; i++) pool.add(new DarkHole());
-        for (int i = 0; i < 3; i++) pool.add(new Hinotama());
+        for (int i = 0; i < 2; i++) pool.add(new PotOfGreed());
+        for (int i = 0; i < 2; i++) pool.add(new BoostAtk());
+        for (int i = 0; i < 2; i++) pool.add(new AcesCoup());
+        for (int i = 0; i < 2; i++) pool.add(new StandarOfCourage());
+        for (int i = 0; i < 2; i++) pool.add(new DarkHole());
+        for (int i = 0; i < 2; i++) pool.add(new Hinotama());
+        for (int i = 0; i < 2; i++) pool.add(new ChangeOfHeart());
+        for (int i = 0; i < 2; i++) pool.add(new Raigeki());
+        for (int i = 0; i < 2; i++) pool.add(new AceleronMiauravilloso());
+        for (int i = 0; i < 2; i++) pool.add(new TyphoonOfMagicalSpace());
 
         Collections.shuffle(pool);
 
@@ -101,6 +105,10 @@ public class Juego {
             Jugador actual = turno ? j1 : j2;
             Jugador oponente = turno ? j2 : j1;
 
+            for (Monstruo m : actual.getCampo()) {
+                m.resetCambio();
+            }
+
             System.out.println("\nTurno de " + actual.getNombre());
             actual.robarCarta();
 
@@ -108,7 +116,8 @@ public class Juego {
 
             System.out.println("1. Jugar carta");
             System.out.println("2. Atacar");
-            System.out.println("3. pasara");
+            System.out.println("3. Cambiar modo");
+            System.out.println("4. Pasar");
 
             int op = sc.nextInt();
 
@@ -121,8 +130,21 @@ public class Juego {
                 }
 
                 case 2 -> faseAtaque(actual, oponente, sc);
+
+                case 3 -> {
+                    if (actual.getCampo().isEmpty()) {
+                        System.out.println("No tienes monstruos");
+                        break;
+                    }
+                    
+                    actual.mostrarCampo();
+                    System.out.println("Elige monstruo:");
+                    int idx = sc.nextInt();
+                    Monstruo m = actual.getCampo().get(idx);
+                    m.cambiarModo();
+                }
                 
-                case 3 -> System.out.println("pasaste tu turno");
+                case 4 -> System.out.println("pasaste tu turno");
             }
 
             if (oponente.getLp() <= 0){
