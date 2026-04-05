@@ -3,21 +3,31 @@
 <h3>DAYAN STEFANY MARULANDA</h3>
 <h3>JUAN ALEJANDRO MARQUEZ</h3>
 
+---
  Yu-Gi-Oh! 
 Mini Proyecto 1 – Programación Orientada a Eventos (Java)<br>
+---
 
+--- 
+Descripción del juego
+---<br>
 
- Descripción del juego
 Este proyecto implementa una simulación simplificada de un duelo de Yu-Gi-Oh! ejecutado completamente por consola en Java 21.
 Dos jugadores se enfrentan utilizando mazos de cartas compuestos por monstruos y cartas mágicas. Cada jugador inicia con 8000 puntos de vida (LP) y el objetivo es reducir los LP del oponente a 0 o hacer que pierda por quedarse sin cartas en el mazo.
-El sistema modela entidades del juego como clases, aplicando los principios fundamentales de la Programación Orientada a Objetos (OOP).
+El sistema modela entidades del juego como clases, aplicando los principios fundamentales de la Programación Orientada a Objetos (OOP).<br>
 
+----
  Instrucciones de ejecución
- Requisitos
+ ---
+ <br>
+Requisitos
 Java JDK 21 o superior
-Consola (CMD, PowerShell, terminal Linux o Mac)
+Consola (CMD, PowerShell, terminal Linux o Mac)<br>
 
+----
  Pasos para ejecutar
+ ---
+<br>
 Clonar el repositorio:
 git clone < https://github.com/sine-wav3/MINI-PROYECTO-1.git>
 
