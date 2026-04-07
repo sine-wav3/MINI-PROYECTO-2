@@ -1,7 +1,7 @@
 <h3>INTEGRANTES:</h3>
-<h3>Daniela Franco Ibarra</h3>
-<h3>Dayan Stefany Marulanda</h3>
-<h3>Juan Alejandro Marquez</h3>
+<h3>Daniela Franco Ibarra: 2477154</h3>
+<h3>Dayan Stefany Marulanda: 2477427</h3>
+<h3>Juan Alejandro Marquez: 2559853 </h3>
 <br>
 
 
