@@ -28,24 +28,48 @@ public class Jugador {
             System.out.println(i + ". " + mano.get(i).getNombre());
         }
     }
-
-    public void jugarCarta(int index, Jugador oponente){
-        if (index < 0 || index >= mano.size()){
-            System.out.println("indice invalido");
-            return;
-        }
-
-        Carta carta = mano.remove(index);
-
-        if(carta instanceof  Monstruo){
-            campo.add((Monstruo) carta);
-            System.out.println(nombre + " invoca " + carta.getNombre());
-        }else if (carta instanceof Activable){
-            ((Activable) carta).activar(this, oponente);
-            System.out.println(nombre + " activa " + carta.getNombre());
-        }
+    // se modifica esto para el sistema de sacrificio y se acomode a lo que pide el profe en el documento
+    public void jugarCarta(int index, Jugador oponente) {
+    if (index < 0 || index >= mano.size()) {
+        System.out.println("Índice inválido");
+        return;
     }
 
+    Carta carta = mano.remove(index);
+
+    if (carta instanceof Monstruo) {
+        Monstruo m = (Monstruo) carta;
+        
+        // he aqui el famoso sistema de sacrificio, se verifica el nivel del monstruo, si es 4 o mas, se necesitan sacrificios, si es 7 o mas, se necesitan 2 sacrificios, si no se cumplen las condiciones, se devuelve la carta a la mano
+        if (m.getNivel() >= 4) {
+            int necesarios = m.getNivel() >= 7 ? 2 : 1;
+            if (campo.size() < necesarios) {
+                System.out.println("Necesitas " + necesarios + " sacrificio(s) para invocar " + m.getNombre());
+                mano.add(index, carta); // devolver la carta
+                return;
+            }
+            
+            System.out.println("Elige " + necesarios + " monstruo(s) para sacrificar:");
+            mostrarCampo();
+            
+            List<Monstruo> sacrificados = new ArrayList<>();
+            Scanner sc = new Scanner(System.in);
+            for (int i = 0; i < necesarios; i++) {
+                int idx = sc.nextInt();
+                sacrificados.add(campo.remove(idx));
+            }
+            System.out.println("Sacrificaste: " + sacrificados);
+        }
+        
+        campo.add(m);
+        System.out.println(nombre + " invoca " + carta.getNombre());
+        
+    } else if (carta instanceof Activable) {
+        ((Activable) carta).activar(this, oponente);
+        System.out.println(nombre + " activa " + carta.getNombre());
+    }
+    }
+    //------------------------------------------------------------------ hasta aqui los cambios del sistema de sacrificio, lo demas es acomodar el codigo para que funcione con esto
     public void recibirDano(int dano){
         lp -= dano;
         System.out.println(nombre + " recibe " + dano + " Lp");
