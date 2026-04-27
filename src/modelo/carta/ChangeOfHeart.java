@@ -1,6 +1,4 @@
 package modelo.carta;
-import java.util.Scanner;
-
 import modelo.juego.Jugador;
 
 public class ChangeOfHeart extends Magica {
@@ -10,18 +8,12 @@ public class ChangeOfHeart extends Magica {
 
     @Override
     public void activar(Jugador jugador, Jugador oponente) {
+        // No hace nada sin índice — usar activar(jugador, oponente, idx)
+    }
+
+    public void activar(Jugador jugador, Jugador oponente, int idx) {
         if (oponente.getCampo().isEmpty()) return;
-
-        Scanner sc = new Scanner(System.in);
-
-        for (int i = 0; i < oponente.getCampo().size(); i++) {
-            System.out.println(i + ". " + oponente.getCampo().get(i).getNombre());
-        }
-
-        int idx = sc.nextInt();
         Monstruo m = oponente.getCampo().remove(idx);
         jugador.getCampo().add(m);
-
-        System.out.println("Robaste un monstruo enemigo");
     }
 }

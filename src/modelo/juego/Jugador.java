@@ -33,48 +33,73 @@ public class Jugador {
             System.out.println(i + ". " + mano.get(i).getNombre());
         }
     }
-    // se modifica esto para el sistema de sacrificio y se acomode a lo que pide el profe en el documento
-    public void jugarCarta(int index, Jugador oponente) {
-    if (index < 0 || index >= mano.size()) {
-        System.out.println("Índice inválido");
-        return;
-    }
 
-    Carta carta = mano.remove(index);
-
-    if (carta instanceof Monstruo) {
-        Monstruo m = (Monstruo) carta;
-        
-        // he aqui el famoso sistema de sacrificio, se verifica el nivel del monstruo, si es 4 o mas, se necesitan sacrificios, si es 7 o mas, se necesitan 2 sacrificios, si no se cumplen las condiciones, se devuelve la carta a la mano
-        if (m.getNivel() >= 4) {
-            int necesarios = m.getNivel() >= 7 ? 2 : 1;
-            if (campo.size() < necesarios) {
-                System.out.println("Necesitas " + necesarios + " sacrificio(s) para invocar " + m.getNombre());
-                mano.add(index, carta); // devolver la carta
-                return;
-            }
-            
-            System.out.println("Elige " + necesarios + " monstruo(s) para sacrificar:");
-            mostrarCampo();
-            
-            List<Monstruo> sacrificados = new ArrayList<>();
-            Scanner sc = new Scanner(System.in);
-            for (int i = 0; i < necesarios; i++) {
-                int idx = sc.nextInt();
-                sacrificados.add(campo.remove(idx));
-            }
-            System.out.println("Sacrificaste: " + sacrificados);
+    // jugarCarta sin Scanner — el controlador pasa los índices de sacrificio
+    public void jugarCarta(int index, Jugador oponente, List<Integer> sacrificios) {
+        if (index < 0 || index >= mano.size()) {
+            System.out.println("Índice inválido");
+            return;
         }
-        
-        campo.add(m);
-        System.out.println(nombre + " invoca " + carta.getNombre());
-        
-    } else if (carta instanceof Activable) {
-        ((Activable) carta).activar(this, oponente);
-        System.out.println(nombre + " activa " + carta.getNombre());
+
+        Carta carta = mano.remove(index);
+
+        if (carta instanceof Monstruo) {
+            Monstruo m = (Monstruo) carta;
+
+            if (m.getNivel() >= 4) {
+                int necesarios = m.getNivel() >= 7 ? 2 : 1;
+                if (campo.size() < necesarios) {
+                    System.out.println("Necesitas " + necesarios + " sacrificio(s) para invocar " + m.getNombre());
+                    mano.add(index, carta); // devolver la carta
+                    return;
+                }
+
+                // sacrificios vienen del controlador, se ordenan de mayor a menor
+                // para no alterar índices al remover
+                if (sacrificios != null && !sacrificios.isEmpty()) {
+                    sacrificios.sort(Collections.reverseOrder());
+                    List<Monstruo> sacrificados = new ArrayList<>();
+                    for (int idx : sacrificios) {
+                        sacrificados.add(campo.remove(idx));
+                    }
+                    System.out.println("Sacrificaste: " + sacrificados);
+                }
+            }
+
+            campo.add(m);
+            System.out.println(nombre + " invoca " + carta.getNombre());
+
+        } else if (carta instanceof Activable) {
+            ((Activable) carta).activar(this, oponente);
+            System.out.println(nombre + " activa " + carta.getNombre());
+        }
     }
+
+    // métodos auxiliares que usa el controlador para el sacrificio
+    public boolean necesitaSacrificio(int index) {
+        if (index < 0 || index >= mano.size()) return false;
+        Carta carta = mano.get(index);
+        if (carta instanceof Monstruo) {
+            Monstruo m = (Monstruo) carta;
+            if (m.getNivel() >= 4) {
+                int necesarios = m.getNivel() >= 7 ? 2 : 1;
+                return campo.size() >= necesarios;
+            }
+        }
+        return false;
     }
-    //------------------------------------------------------------------ hasta aqui los cambios del sistema de sacrificio, lo demas es acomodar el codigo para que funcione con esto
+
+    public int sacrificiosNecesarios(int index) {
+        if (index < 0 || index >= mano.size()) return 0;
+        Carta carta = mano.get(index);
+        if (carta instanceof Monstruo) {
+            Monstruo m = (Monstruo) carta;
+            if (m.getNivel() >= 7) return 2;
+            if (m.getNivel() >= 4) return 1;
+        }
+        return 0;
+    }
+
     public void recibirDano(int dano){
         lp -= dano;
         System.out.println(nombre + " recibe " + dano + " Lp");
@@ -87,16 +112,8 @@ public class Jugador {
         }
     }
 
-    public String getNombre(){
-        return nombre;
-    }
-    public int getLp(){
-        return lp;
-    }
-    public List<Monstruo> getCampo(){
-        return campo;
-    }
-    public List<Carta> getMano(){
-        return mano;
-    }
+    public String getNombre(){ return nombre; }
+    public int getLp(){ return lp; }
+    public List<Monstruo> getCampo(){ return campo; }
+    public List<Carta> getMano(){ return mano; }
 }
