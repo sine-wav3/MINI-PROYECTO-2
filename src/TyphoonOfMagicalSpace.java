@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class TyphoonOfMagicalSpace extends Magica {
 
     public TyphoonOfMagicalSpace() {
@@ -10,6 +12,9 @@ public class TyphoonOfMagicalSpace extends Magica {
             System.out.println("No hay cartas para destruir");
             return;
         }
+
+        Scanner sc = new Scanner(System.in);
+
         System.out.println("Elige un monstruo enemigo:");
         for (int i = 0; i < oponente.getCampo().size(); i++) {
             System.out.println(i + ". " + oponente.getCampo().get(i).getNombre());
