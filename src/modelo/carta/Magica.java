@@ -1,3 +1,6 @@
+package modelo.carta;
+
+import modelo.efecto.Activable;
 
 public abstract class Magica extends Carta implements Activable {
 

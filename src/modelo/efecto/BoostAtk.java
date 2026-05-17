@@ -1,3 +1,7 @@
+package modelo.efecto;
+import modelo.carta.Magica;
+import modelo.carta.Monstruo;
+import modelo.juego.Jugador;
 
 public class BoostAtk extends Magica{
 

@@ -1,4 +1,5 @@
-
+package modelo.carta;
+import modelo.juego.Jugador;
 
 public class MirrorForce extends Trampa {
     

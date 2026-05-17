@@ -1,3 +1,6 @@
+package modelo.carta;
+import modelo.efecto.Activable;
+import modelo.juego.Jugador;
 
 public abstract class Trampa extends Carta implements Activable {
 

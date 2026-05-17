@@ -1,3 +1,5 @@
+package modelo.carta;
+
 public class Monstruo extends Carta {
 
     private int atk;

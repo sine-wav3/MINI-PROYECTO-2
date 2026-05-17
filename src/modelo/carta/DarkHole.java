@@ -1,3 +1,5 @@
+package modelo.carta;
+import modelo.juego.Jugador;
 
 public class DarkHole extends Magica {
     public DarkHole(){

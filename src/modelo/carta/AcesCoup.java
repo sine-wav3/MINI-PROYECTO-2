@@ -1,4 +1,7 @@
+package modelo.carta;
 import java.util.Random;
+
+import modelo.juego.Jugador;
 
 public class AcesCoup extends Magica {
     public AcesCoup() {
